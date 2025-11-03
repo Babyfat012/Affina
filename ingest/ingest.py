@@ -4,7 +4,7 @@ import os
 import pandas as pd
 from sqlalchemy import create_engine
 
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://babyfat:admin@postgres:5432/analytics")
+DATABASE_URL = os.getenv("DATABASE_URL", "mysql+pymysql://aff_admin:affina_poOB7G9A51@172.16.10.32:3306/profiling_analysis?charset=utf8mb4")
 ENGINE = create_engine(DATABASE_URL)
 
 def load_excel(path="data.xlsx", sheet=0):
