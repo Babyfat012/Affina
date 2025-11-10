@@ -1,5 +1,4 @@
 # yaml
-version: "3.8"
 services:
   metabase_db:
     image: postgres:15
@@ -16,7 +15,7 @@ services:
   metabase:
     image: metabase/metabase
     ports:
-      - "3000:3000"
+      - "3001:3000"
     environment:
       MB_DB_TYPE: postgres
       MB_DB_HOST: metabase_db
@@ -24,16 +23,14 @@ services:
       MB_DB_DBNAME: metabase_app
       MB_DB_USER: admin
       MB_DB_PASS: admin
+      MB_ENCRYPTION_SECRET_KEY: "this_is_a_very_long_random_key_1234567890"
 
-      # Cấu hình tài khoản đăng nhập vào metabase
-#      MB_SITE_URL: http://localhost:3000
-#      MB_SETUP_ADMIN_EMAIL: phat123@gmail.com
-#      MB_SETUP_ADMIN_FIRST_NAME: Admin
-#      MB_SETUP_ADMIN_LAST_NAME: Local
-#      MB_SETUP_ADMIN_PASSWORD: Admin123@
-#      MB_ENCRYPTION_SECRET_KEY: "this_is_a_very_long_random_key_1234567890"
+      MB_PLUGINS_DIR: /plugins
+      MB_CUSTOM_VISUALIZATIONS: "true"
     depends_on:
       - metabase_db
+    volumes:
+      - ./plugins:/plugins
     restart: unless-stopped
 
   ingest:
@@ -56,4 +53,3 @@ services:
 
 volumes:
   mb_pgdata:
-
